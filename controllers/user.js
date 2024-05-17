@@ -2,6 +2,11 @@ const User = require('../models/user');
 
 async function handleSignupUser(req, res) {
     const { name, email, password } = req.body;
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
 
     // Check if email is already registered
     const existingUser = await User.findOne({ email });
