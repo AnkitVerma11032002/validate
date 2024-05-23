@@ -47,6 +47,7 @@ async function handleSignupUser(req, res) {
 
     // Hash password and create user
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword);
     try {
         await User.create({ name, email, password: hashedPassword, mobileNumber: formattedNumber });
         res.json({ message: 'User signed up successfully' });
